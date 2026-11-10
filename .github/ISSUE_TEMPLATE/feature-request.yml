@@ -1,0 +1,33 @@
+name: Feature request
+description: Suggest a capability the MCP service should have
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The tool surface is deliberately small, so a request here is a request to
+        grow the public contract — that takes a compatibility decision on our
+        side, not just a code change.
+
+        Tell us what you are trying to build. That helps us judge whether it
+        belongs in the service at all.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What are you trying to do?
+      description: The job you cannot get done with the current tools.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What would the tool look like?
+      description: Name, parameters, what it would return. Sketch is fine.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Why not solve it on your side?
+      description: If you already work around this, that workaround is evidence.

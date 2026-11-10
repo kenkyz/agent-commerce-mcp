@@ -1,0 +1,35 @@
+{
+  "name": "agent-commerce-mcp",
+  "version": "0.1.0",
+  "description": "Client examples and integration docs for the agent-commerce MCP service",
+  "type": "module",
+  "license": "MIT",
+  "private": false,
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "demo": "tsx examples/shopping-agent/index.ts",
+    "sdk-client": "tsx examples/sdk-client/index.ts",
+    "agent-step": "tsx examples/agent-step/index.ts",
+    "typecheck": "tsc --noEmit",
+    "scan:secrets": "node tools/scan-secrets.mjs",
+    "check:docs": "node tools/check-docs.mjs",
+    "check": "npm run typecheck && npm run check:docs && npm run scan:secrets"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "shopping-agent",
+    "e-commerce",
+    "ai-agent"
+  ],
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.2"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  }
+}

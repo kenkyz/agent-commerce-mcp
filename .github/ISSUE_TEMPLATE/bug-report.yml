@@ -1,0 +1,51 @@
+name: Bug report
+description: The docs, the examples or the service did not behave as documented
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report this.
+
+        If something did not work as the docs describe, that is the most useful
+        thing you can tell us — the docs are part of what we ship.
+
+        If you can, include the `x-request-id` response header: it lets us find
+        that exact call in the logs.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: What you expected, and what you got instead.
+      placeholder: "search_products returned ..."
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: How to reproduce
+      description: The exact request or command, with keys masked.
+      render: shell
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Which environment
+      description: trial or production
+      placeholder: production
+    validations:
+      required: true
+  - type: input
+    id: client
+    attributes:
+      label: Client and version
+      description: "e.g. Claude Desktop, Cursor, or your own agent + SDK version"
+    validations:
+      required: true
+  - type: input
+    id: request-id
+    attributes:
+      label: x-request-id
+      description: The value of the x-request-id response header, if you have it.

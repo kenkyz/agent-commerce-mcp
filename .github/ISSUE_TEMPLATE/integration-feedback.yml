@@ -1,0 +1,44 @@
+name: Integration feedback
+description: How the integration actually went
+title: "[Feedback]: "
+labels: ["feedback"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This is the highest-signal issue type for us: it tells us where the
+        integration experience is rough, which is exactly what we cannot see
+        from inside the service.
+
+        No need to be polite — plain is better.
+  - type: input
+    id: building
+    attributes:
+      label: What are you building?
+      description: One line is enough.
+    validations:
+      required: true
+  - type: textarea
+    id: friction
+    attributes:
+      label: Where did you get stuck?
+      description: The step that took longest, and what you had to work around.
+    validations:
+      required: true
+  - type: textarea
+    id: missing
+    attributes:
+      label: What was missing?
+      description: Documentation, an example, a field, an error message — whatever you expected to find and did not.
+  - type: dropdown
+    id: time-to-first-call
+    attributes:
+      label: How long did the first successful call take?
+      options:
+        - under 15 minutes
+        - 15-60 minutes
+        - 1-4 hours
+        - more than a day
+        - still not working
+    validations:
+      required: true
