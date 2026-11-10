@@ -14,13 +14,14 @@ jobs:
     name: typecheck, docs and secrets
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
+          # 密钥扫描要扫全历史，历史在浅克隆里是没有的。
           fetch-depth: 0
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
-          node-version: 20
+          node-version: "24"
           cache: npm
 
       - run: npm ci
