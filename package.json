@@ -1,6 +1,6 @@
 {
   "name": "agent-commerce-mcp",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Client examples and integration docs for the agent-commerce MCP service",
   "type": "module",
   "license": "MIT",
