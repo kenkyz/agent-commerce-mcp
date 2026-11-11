@@ -11,7 +11,7 @@
  * protocol version negotiation).
  *
  * Usage:
- *   npx tsx examples/sdk-client/index.ts --base https://commerce.bitfund.ltd
+ *   npx tsx examples/sdk-client/index.ts --base https://staging.bitfund.ltd
  *
  * The key comes from --api-key, or from MCP_API_KEY in the environment.
  * This example only ever uses YOUR key — it never issues or revokes one.
@@ -38,7 +38,7 @@ function parseArgs(argv: string[]): Args {
   };
 
   return {
-    base: (get("base") ?? process.env.MCP_URL ?? "https://commerce.bitfund.ltd").replace(
+    base: (get("base") ?? process.env.MCP_URL ?? "https://staging.bitfund.ltd").replace(
       /\/+$/,
       "",
     ),

@@ -20,7 +20,7 @@ Qwen, OpenRouter, a self-hosted vLLM, a local Ollama.
 
 | Variable | Required | Meaning | Example |
 |---|---|---|---|
-| `MCP_URL` | no | MCP endpoint (**without** `/mcp`; the script appends it) | `https://commerce.bitfund.ltd` |
+| `MCP_URL` | no | MCP endpoint (**without** `/mcp`; the script appends it) | `https://staging.bitfund.ltd` |
 | `MCP_API_KEY` | **yes** | MCP credential | `ac_trial_xxxxxxxx` |
 | `LLM_BASE_URL` | **yes** | base URL of the model service | `https://api.minimax.chat/v1` |
 | `LLM_API_KEY` | **yes** | credential for the model service | `sk-xxxxxxxx` |

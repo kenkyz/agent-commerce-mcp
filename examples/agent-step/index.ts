@@ -34,7 +34,7 @@ function parseArgs(argv: string[]): Args {
   };
 
   return {
-    base: (get("base") ?? process.env.MCP_URL ?? "https://commerce.bitfund.ltd").replace(
+    base: (get("base") ?? process.env.MCP_URL ?? "https://staging.bitfund.ltd").replace(
       /\/+$/,
       "",
     ),

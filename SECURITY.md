@@ -10,7 +10,7 @@ service**. The service itself is hosted and is not part of this repository.
 **In the service** (the MCP endpoint, the API keys, the catalog, the redirect
 and attribution path):
 
-Report it privately to **kenkyz@foxmail.com** rather than opening a public
+Report it privately to **admin@bitfund.ltd** rather than opening a public
 issue. Include the request id, the endpoint, the timestamp and a description
 of the impact. You will get an acknowledgement.
 

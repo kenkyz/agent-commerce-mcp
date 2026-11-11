@@ -15,7 +15,7 @@ This guide is for developers connecting to this service's MCP endpoint **for the
 |---|---|
 | An API key | Request one from the service provider; it looks like `ac_trial_xxxxxxxx`. **The plaintext is shown once** — there is no way to retrieve it afterwards |
 | An MCP client | Claude Desktop, Cursor, or your own agent (code below) |
-| Node.js 18+ | Only needed for the "build your own agent" section |
+| Node.js 20+ | Only needed for the "build your own agent" section |
 
 > **Endpoints:** trial environment `https://staging.bitfund.ltd/mcp`,
 > production `https://commerce.bitfund.ltd/mcp`.
@@ -229,6 +229,28 @@ npx @modelcontextprotocol/inspector --cli https://staging.bitfund.ltd/mcp \
 These 6 steps are a complete "search → recommend → impression → purchase
 redirect" flow. A full runnable script lives in
 [`examples/shopping-agent/`](../examples/shopping-agent/).
+
+### Running it
+
+The script needs the service URL and your key in the environment, plus a
+model provider for the agent itself (`LLM_BASE_URL`, `LLM_API_KEY`,
+`LLM_MODEL` — any OpenAI-compatible endpoint works, see the example's README).
+
+**macOS / Linux**
+
+```bash
+export MCP_URL="https://staging.bitfund.ltd"
+export MCP_API_KEY="ac_trial_xxxxxxxx"
+npx tsx examples/shopping-agent/index.ts --query "wireless headphones under 200"
+```
+
+**Windows (PowerShell)**
+
+```powershell
+$env:MCP_URL = "https://staging.bitfund.ltd"
+$env:MCP_API_KEY = "ac_trial_xxxxxxxx"
+npx tsx examples/shopping-agent/index.ts --query "wireless headphones under 200"
+```
 
 | Step | Tool | What to watch |
 |---|---|---|

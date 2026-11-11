@@ -22,7 +22,7 @@
 | 归一化的商品属性 | 自己解析各家listing标题 | `condition` 用稳定词表 |
 | 报价比价 | 自己分组、自己排序 | `compare_offers`，按币种分组 |
 | 点击归因 | 自己写跳转服务、自己跑事件管道 | `record_recommendation` → `record_impression` → `create_purchase_link` |
-| 知道到底卖出去多少 | 自己匹配转化 | `recommendation_analytics` |
+| 在有转化数据时衡量归因转化 | 自己匹配转化 | `recommendation_analytics` |
 
 这些都不是你产品最难的部分。这个服务替你省掉的就是那一个月。
 
@@ -48,6 +48,7 @@
 
 > 两个环境，**Key 不通用**：
 > 试用 `https://staging.bitfund.ltd/mcp`，正式 `https://commerce.bitfund.ltd/mcp`。
+> 下面所有示例都用**试用**环境——切正式时 URL 和 Key 要一起换。
 
 ### 2. 让客户端指过来
 
@@ -57,7 +58,7 @@ Claude Desktop、Cursor，或者任何会讲 MCP 的东西：
 {
   "mcpServers": {
     "agent-commerce": {
-      "url": "https://commerce.bitfund.ltd/mcp",
+      "url": "https://staging.bitfund.ltd/mcp",
       "headers": {
         "x-api-key": "<YOUR_API_KEY>"
       }
@@ -73,7 +74,7 @@ Claude Desktop、Cursor，或者任何会讲 MCP 的东西：
 ### 3. 发一次调用
 
 ```bash
-curl -X POST https://commerce.bitfund.ltd/mcp \
+curl -X POST https://staging.bitfund.ltd/mcp \
   -H "Content-Type: application/json" \
   -H "Accept: application/json, text/event-stream" \
   -H "x-api-key: $YOUR_API_KEY" \
@@ -96,10 +97,15 @@ English: [docs/quickstart.md](./docs/quickstart.md)
 | `create_purchase_link` | `catalog:read` | 生成带归因的购买链接 |
 | `record_recommendation` | `recommendations:write` | 记录推荐，返回 item id |
 | `record_impression` | `recommendations:write` | 上报曝光（幂等） |
-| `recommendation_analytics` | `analytics:read` | 读推荐 → 曝光 → 点击 → 转化漏斗 |
+| `recommendation_analytics` | `analytics:read` | 读推荐 → 曝光 → 点击漏斗，有数据时带转化报告 |
 
 工具清单**按 Key 的权限过滤**：没有 `analytics:read` 的 Key，
 `tools/list` 里根本不会出现 `recommendation_analytics`。
+
+**契约版本：2026-11-10。** 只有会破坏现有接入的变更才升版本。
+
+**关于转化**：转化报告取决于是否有有效的联盟网络转化数据或导入事件。
+点击可追踪不等于购买已被确认。
 
 完整规范：[docs/zh/contract.md](./docs/zh/contract.md) ·
 速查表：[docs/zh/tools.md](./docs/zh/tools.md) ·
@@ -115,6 +121,14 @@ English: [docs/quickstart.md](./docs/quickstart.md)
 ```bash
 npm install
 cp .env.example .env        # 填 MCP_API_KEY 和模型 Key
+npm run demo -- --query "200 以内的无线耳机"
+```
+
+**Windows（PowerShell）**
+
+```powershell
+npm install
+Copy-Item .env.example .env    # 然后填 MCP_API_KEY 和模型 Key
 npm run demo -- --query "200 以内的无线耳机"
 ```
 

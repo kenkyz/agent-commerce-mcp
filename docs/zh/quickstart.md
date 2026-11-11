@@ -14,7 +14,7 @@
 |---|---|
 | 一把 API Key | 向服务方索取，形如 `ac_trial_xxxxxxxx`。**明文只给一次**，本服务不提供找回 |
 | 一个 MCP 客户端 | Claude Desktop、Cursor，或你自己的 Agent（下面给代码） |
-| Node.js 18+ | 只有写代码那一节需要 |
+| Node.js 20+ | 只有写代码那一节需要 |
 
 > **服务地址**：试用环境 `https://staging.bitfund.ltd/mcp`，
 > 正式环境 `https://commerce.bitfund.ltd/mcp`。
@@ -212,6 +212,28 @@ npx @modelcontextprotocol/inspector --cli https://staging.bitfund.ltd/mcp \
 
 这 6 步就是一次完整的"搜索 → 推荐 → 曝光 → 购买跳转"。
 完整可运行的脚本见 [`examples/shopping-agent/`](../../examples/shopping-agent/)。
+
+### 跑起来
+
+脚本需要把服务地址和 Key 放进环境变量；Agent 本身还需要一个模型服务
+（`LLM_BASE_URL`、`LLM_API_KEY`、`LLM_MODEL`，任何 OpenAI 兼容的端点都行，
+详见示例的 README）。
+
+**macOS / Linux**
+
+```bash
+export MCP_URL="https://staging.bitfund.ltd"
+export MCP_API_KEY="ac_trial_xxxxxxxx"
+npx tsx examples/shopping-agent/index.ts --query "wireless headphones under 200"
+```
+
+**Windows（PowerShell）**
+
+```powershell
+$env:MCP_URL = "https://staging.bitfund.ltd"
+$env:MCP_API_KEY = "ac_trial_xxxxxxxx"
+npx tsx examples/shopping-agent/index.ts --query "wireless headphones under 200"
+```
 
 | 步骤 | 工具 | 关键点 |
 |---|---|---|

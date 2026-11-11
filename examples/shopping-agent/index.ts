@@ -21,7 +21,7 @@
  *
  * ## Configuration
  *
- *   MCP_URL=https://commerce.bitfund.ltd     # no /mcp — this script appends it
+ *   MCP_URL=https://staging.bitfund.ltd      # no /mcp — this script appends it
  *   MCP_API_KEY=ac_trial_xxxxxxxx
  *   LLM_BASE_URL=https://api.minimax.chat/v1
  *   LLM_API_KEY=sk-xxxxxxxx
@@ -66,7 +66,7 @@ function requireEnv(name: string): string {
 
 function loadConfig(): Config {
   return {
-    mcpUrl: (process.env.MCP_URL ?? "https://commerce.bitfund.ltd").replace(/\/+$/, ""),
+    mcpUrl: (process.env.MCP_URL ?? "https://staging.bitfund.ltd").replace(/\/+$/, ""),
     mcpApiKey: requireEnv("MCP_API_KEY"),
     llmBaseUrl: requireEnv("LLM_BASE_URL").replace(/\/+$/, ""),
     llmApiKey: requireEnv("LLM_API_KEY"),

@@ -23,7 +23,7 @@ Adding shopping to an AI agent usually means building all of this first:
 | Normalized attributes | parse raw listing titles yourself | `condition` from a stable vocabulary |
 | Offer comparison | your own grouping and ranking | `compare_offers`, grouped per currency |
 | Click attribution | your own redirect service and event pipeline | `record_recommendation` → `record_impression` → `create_purchase_link` |
-| Knowing what actually sold | your own conversion matching | `recommendation_analytics` |
+| Measuring attributed conversions when conversion data is available | your own conversion matching | `recommendation_analytics` |
 
 None of that is the hard part of your product. This service is the part you
 would otherwise spend a month on.
@@ -52,6 +52,8 @@ operation — if you lose it, you get a new one.
 
 > Two environments exist and **keys are not shared between them**:
 > trial `https://staging.bitfund.ltd/mcp`, production `https://commerce.bitfund.ltd/mcp`.
+> Everything below uses the **trial** environment — switch the URL and the key
+> together when you move to production.
 
 ### 2. Point your client at it
 
@@ -61,7 +63,7 @@ Claude Desktop, Cursor, or anything that speaks MCP:
 {
   "mcpServers": {
     "agent-commerce": {
-      "url": "https://commerce.bitfund.ltd/mcp",
+      "url": "https://staging.bitfund.ltd/mcp",
       "headers": {
         "x-api-key": "<YOUR_API_KEY>"
       }
@@ -78,7 +80,7 @@ Claude Desktop, Cursor, or anything that speaks MCP:
 ### 3. Make one call
 
 ```bash
-curl -X POST https://commerce.bitfund.ltd/mcp \
+curl -X POST https://staging.bitfund.ltd/mcp \
   -H "Content-Type: application/json" \
   -H "Accept: application/json, text/event-stream" \
   -H "x-api-key: $YOUR_API_KEY" \
@@ -102,10 +104,17 @@ request is rejected with `406`.
 | `create_purchase_link` | `catalog:read` | Build an attributed purchase URL for an offer |
 | `record_recommendation` | `recommendations:write` | Record what you recommended; returns the item ids |
 | `record_impression` | `recommendations:write` | Report that an item was shown (idempotent) |
-| `recommendation_analytics` | `analytics:read` | Read the recommendation → impression → click → conversion funnel |
+| `recommendation_analytics` | `analytics:read` | Read the recommendation → impression → click funnel, with conversion reporting when data is available |
 
 The list is **filtered by the key's scopes**: a key without `analytics:read`
 simply does not see `recommendation_analytics` in `tools/list`.
+
+**Contract version: 2026-11-10.** It changes only when a change would break an
+existing integration.
+
+**On conversions:** conversion reporting depends on the availability of valid
+affiliate-network conversion data or imported events. Click tracking does not
+imply a confirmed purchase.
 
 Full specification: [docs/contract.md](./docs/contract.md) ·
 Quick reference: [docs/tools.md](./docs/tools.md) ·
@@ -121,6 +130,14 @@ and what to pass, the service supplies the catalog and the attribution.
 ```bash
 npm install
 cp .env.example .env        # fill in MCP_API_KEY and your model key
+npm run demo -- --query "wireless headphones under 200"
+```
+
+**Windows (PowerShell)**
+
+```powershell
+npm install
+Copy-Item .env.example .env    # then fill in MCP_API_KEY and your model key
 npm run demo -- --query "wireless headphones under 200"
 ```
 

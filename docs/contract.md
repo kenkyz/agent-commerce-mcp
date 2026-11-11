@@ -1,5 +1,11 @@
 # MCP Service Contract
 
+> **Contract version:** 2026-11-10 · **Status:** Developer Preview
+>
+> The version changes only when a change breaks an existing integration.
+> Quote it when you report a problem, so we know which contract your
+> integration was written against.
+
 This file describes the **MCP endpoint offered to external AI agents**:
 endpoint, transport, authentication, permissions, tool list, rate limits,
 logging and compatibility promises.
@@ -500,10 +506,10 @@ The model provider in the demo is a configuration value: any OpenAI-compatible
 ### 9.1 Test it by hand with the MCP Inspector
 
 ```powershell
-npx @modelcontextprotocol/inspector --cli https://commerce.bitfund.ltd/mcp \
+npx @modelcontextprotocol/inspector --cli https://staging.bitfund.ltd/mcp \
   --method tools/list --header "x-api-key: ac_trial_xxxxxxxx"
 
-npx @modelcontextprotocol/inspector --cli https://commerce.bitfund.ltd/mcp \
+npx @modelcontextprotocol/inspector --cli https://staging.bitfund.ltd/mcp \
   --method tools/call --tool-name search_products \
   --tool-arg q=iphone --tool-arg limit=3 \
   --header "x-api-key: ac_trial_xxxxxxxx"

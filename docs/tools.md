@@ -3,6 +3,8 @@
 The **authoritative** specification is [contract.md](./contract.md). This page
 is the quick version: one section per tool, only what you actually pass.
 
+**Contract version: 2026-11-10.**
+
 The two cannot drift apart — CI compares the tool names listed here against
 the contract and fails the build if they differ.
 
@@ -182,6 +184,10 @@ Read the recommendation performance stats. Requires `analytics:read`.
   `price` is a different unit — a fixed-point decimal in the major unit.
 - `impressions` being `null` means *no impression data was collected*,
   **not** "nobody looked at it".
+- Conversion figures appear **only when valid conversion data is available**
+  (affiliate-network attribution or imported events). Click tracking alone
+  does not confirm a purchase — treat an empty `conversions` field as
+  "no conversion data yet", not "nobody bought anything".
 
 ---
 

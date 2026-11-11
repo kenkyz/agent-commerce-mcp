@@ -263,34 +263,49 @@ function main() {
   }
 
   const findings = [];
+  const problems = [];
   const worktreeFiles = scanWorktree(repo, findings);
   let historyBlobs = 0;
+  let historyFailed = false;
   if (history) {
     try {
       historyBlobs = scanHistory(repo, findings);
     } catch (error) {
-      console.error("历史扫描失败：", error instanceof Error ? error.message : error);
+      historyFailed = true;
+      // fail-closed：历史没扫完，就不能算"干净"。
+      // 把没完成的扫描当成"通过"，等于把没检查过的部分当成了安全——
+      // 这比报个假警危险得多。
+      problems.push(
+        "历史扫描失败：" + (error instanceof Error ? error.message : String(error)),
+      );
     }
   }
 
   const unique = dedupe(findings);
 
   if (asJson) {
-    console.log(JSON.stringify({ repo, findings: unique }, null, 2));
+    console.log(JSON.stringify({ repo, findings: unique, problems }, null, 2));
   } else {
     console.log(`扫描目标：${repo}`);
     console.log(
       `覆盖：工作树 ${worktreeFiles} 个文件` +
-        (history ? ` + Git 历史 ${historyBlobs} 个 blob` : `（未扫历史）`),
+        (history
+          ? historyFailed
+            ? ` + Git 历史（扫描失败）`
+            : ` + Git 历史 ${historyBlobs} 个 blob`
+          : `（未扫历史）`),
     );
     console.log(`发现 ${unique.length} 处疑似密钥`);
     for (const f of unique) {
       console.log(`  [${f.rule}] ${f.location}:${f.line}  熵=${f.entropy}  ${f.preview}`);
     }
-    if (unique.length === 0) console.log("  没有发现。");
+    for (const problem of problems) {
+      console.log(`  ! ${problem}`);
+    }
+    if (unique.length === 0 && problems.length === 0) console.log("  没有发现。");
   }
 
-  process.exitCode = unique.length > 0 ? 1 : 0;
+  process.exitCode = unique.length > 0 || problems.length > 0 ? 1 : 0;
 }
 
 main();

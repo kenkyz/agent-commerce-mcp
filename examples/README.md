@@ -45,7 +45,7 @@ npm run demo -- --query "wireless headphones under 200"
 
 | Environment | Endpoint | Catalog |
 |---|---|---|
-| trial | `https://staging.bitfund.ltd` | eBay sandbox — every listing is `New` and `in_stock` |
+| **trial** (default) | `https://staging.bitfund.ltd` | eBay sandbox — every listing is `New` and `in_stock` |
 | production | `https://commerce.bitfund.ltd` | the live eBay market |
 
 **Keys are not shared between the two.** If you get a 401 on a key you are

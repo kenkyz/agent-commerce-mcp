@@ -1,5 +1,9 @@
 # MCP 服务契约
 
+> **契约版本：** 2026-11-10 · **状态：** Developer Preview
+>
+> 只有破坏性变更才升版本。报障时带上它，我们就知道你对接的是哪一版契约。
+
 本文件描述**面向外部 AI Agent 开放的 MCP 入口**：接入地址、传输方式、鉴权、
 权限、工具清单、限流、日志与兼容性承诺。
 
@@ -438,10 +442,10 @@ Demo 里的模型提供商是配置项：任何 OpenAI 兼容的 `/chat/completi
 ### 9.1 用 MCP Inspector 手测
 
 ```powershell
-npx @modelcontextprotocol/inspector --cli https://commerce.bitfund.ltd/mcp \
+npx @modelcontextprotocol/inspector --cli https://staging.bitfund.ltd/mcp \
   --method tools/list --header "x-api-key: ac_trial_xxxxxxxx"
 
-npx @modelcontextprotocol/inspector --cli https://commerce.bitfund.ltd/mcp \
+npx @modelcontextprotocol/inspector --cli https://staging.bitfund.ltd/mcp \
   --method tools/call --tool-name search_products \
   --tool-arg q=iphone --tool-arg limit=3 \
   --header "x-api-key: ac_trial_xxxxxxxx"
